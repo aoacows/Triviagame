@@ -85,7 +85,7 @@ $(document).ready(function () {
         choice = questions[randomQ];
         $("#question").html("<h2>" + choice.question + "</h2>");
         for (var i = 0; i < choice.choices.length; i++) {
-            var playerChoice = $("<div>");
+            var playerChoice = $("<button>");
             playerChoice.addClass("answerChoice");
             playerChoice.html(choice.choices[i]);
             playerChoice.attr("data-guess", i);
@@ -93,7 +93,7 @@ $(document).ready(function () {
         };
     };
     
-    $(".answerChoice").on("click", function() {
+    $(document).on("click", ".answerChoice", function() {
         guess = parseInt($(this).attr("data-guess"));
         if (guess === choice.answer) {
             stop();
@@ -108,10 +108,12 @@ $(document).ready(function () {
             $("#answers").html("<p>Incorrect! The correct answer was: " + choice.choices[choice.answer] + "</p>");
             hidePic();
         };
+        console.log(clicked);
+        
     });
     
     function hidePic() {
-        $("#answers").append("<img src=" + choice.photo + ">");
+        $("#answers").append("<img src=" + questions.pic + ">");
         picArray.push(choice);
         questions.splice(randomQ, 1);
         var picHide = setTimeout(function() {
